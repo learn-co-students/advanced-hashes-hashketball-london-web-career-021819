@@ -28,11 +28,66 @@ def game_hash
 end
 
 def num_points_scored(name)
-	game_hash.each do |location, team_data|
-		team_data[:players].each do |attribute, data|
-			if attribute[:player_name] == name
-				return attribute[:points]
+	game_hash.each do |location, team_data|  # location = :home, team_data = all contents of nested hash
+		team_data[:players].each do |attribute, data| # attribute = player data hash, data is nil
+      #binding.pry
+			if attribute[:player_name] == name #if player name is equal to name
+				return attribute[:points] #return points of player name
 			end
 		end
 	end
+end
+
+def shoe_size(name)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |attribute, data|
+      if attribute[:player_name] == name
+        return attribute[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team)
+  game_hash.each do |location, team_data|
+     if team_data[:team_name] == team
+       return team_data[:colors].map
+    end
+  end
+end
+
+def team_names
+    names = []
+    game_hash.each do |location, team_data|
+    names << team_data[:team_name]
+  end
+  names
+end
+
+def player_numbers(name)
+    team_numbers = []
+
+    game_hash.each do |location, team_data|
+        if team_data[:team_name] == name
+          team_data[:players].each do |attribute, data|
+            team_numbers << attribute[:number]
+          end
+        end
+    end
+    team_numbers
+end
+
+def player_stats(name)
+  game_hash.each do |location, team_data|
+		team_data[:players].each do |attribute, data|
+			if attribute[:player_name] == name
+				attribute.delete(:player_name)
+				return attribute
+			end
+		end
+	end
+end
+
+def big_shoe_rebounds
+
 end
