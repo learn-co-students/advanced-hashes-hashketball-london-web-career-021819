@@ -202,7 +202,6 @@ def player_stats(player_name)
 end
 
 def big_shoe_rebounds
-  person = ""
   big_shoe = 1
   rebound = 0
 
@@ -210,7 +209,6 @@ def big_shoe_rebounds
     team_stat[:players].each do |player, stat|
       if stat[:shoe] > big_shoe
         big_shoe = stat[:shoe]
-        person = player
         rebound = stat[:rebounds]
       end
     end
