@@ -82,18 +82,19 @@ def player_stats(name)
   game_hash.each do |location, team_data|
 		team_data[:players].each do |attribute, data|
 			if attribute[:player_name] == name
-				attribute.delete(:player_name)
-				return attribute
+        #binding.pry
+				attribute.delete(:player_name) #deletes player name
+				return attribute #returns hash
 			end
 		end
 	end
 end
 
 def big_shoe_rebounds
-	game_hash.each do |location, team_data|
-		 sorted_shoe = team_data[:players].sort_by { |attribute, data| attribute[:shoe]}.reverse
+	 game_hash.each do |location, team_data|
+		 sorted_array = team_data[:players].sort_by { |attribute, data| attribute[:shoe]}.reverse #creates new array with shoe sizes in deceding order
 
-		sorted_shoe.each.with_index do |(attribute, data), index|
+		sorted_array.each.with_index do |(attribute, data), index| 
 			if index == 0
 				return attribute[:rebounds]
 			end
