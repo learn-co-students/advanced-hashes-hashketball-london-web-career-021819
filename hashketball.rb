@@ -51,15 +51,16 @@ end
 def team_colors(team)
   game_hash.each do |location, team_data|
      if team_data[:team_name] == team
-       return team_data[:colors].map
+       return team_data[:colors].map #returns new array
     end
   end
 end
 
 def team_names
     names = []
+
     game_hash.each do |location, team_data|
-    names << team_data[:team_name]
+    names.push(team_data[:team_name])
   end
   names
 end
@@ -89,5 +90,13 @@ def player_stats(name)
 end
 
 def big_shoe_rebounds
+	game_hash.each do |location, team_data|
+		 sorted_shoe = team_data[:players].sort_by { |attribute, data| attribute[:shoe]}.reverse
 
+		sorted_shoe.each.with_index do |(attribute, data), index|
+			if index == 0
+				return attribute[:rebounds]
+			end
+		end
+	end
 end
