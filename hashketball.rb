@@ -28,9 +28,8 @@ def game_hash
 end
 
 def num_points_scored(name)
-	game_hash.each do |location, team_data|  # location = :home, team_data = all contents of nested hash
-		team_data[:players].each do |attribute, data| # attribute = player data hash, data is nil
-      #binding.pry
+	game_hash.each do |location, team_data|  #location = :home, :away, team_data = all contents of nested hash
+		team_data[:players].each do |attribute, data| #attribute = player data hash, data is nil?
 			if attribute[:player_name] == name #if player name is equal to name
 				return attribute[:points] #return points of player name
 			end
@@ -91,13 +90,18 @@ def player_stats(name)
 end
 
 def big_shoe_rebounds
-	 game_hash.each do |location, team_data|
-		 sorted_array = team_data[:players].sort_by { |attribute, data| attribute[:shoe]}.reverse #creates new array with shoe sizes in deceding order
+  name = nil
+  shoe = 0
+  rebounds = 0
 
-		sorted_array.each.with_index do |(attribute, data), index| 
-			if index == 0
-				return attribute[:rebounds]
-			end
-		end
-	end
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |attribute, data|
+      if attribute[:shoe] > shoe
+        shoe = attribute[:shoe]
+        name = attribute
+        rebounds = attribute[:rebounds]
+      end
+    end
+  end
+  rebounds
 end
