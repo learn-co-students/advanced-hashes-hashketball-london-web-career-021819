@@ -90,14 +90,17 @@ def player_stats(name)
 end
 
 def big_shoe_rebounds
+    biggest_shoe_player = nil
+
     game_hash.each do |location, team_data|
-      sorted_array = team_data[:players].sort_by { |attribute, data| attribute[:shoe]}.reverse
-      #creates new array with shoe sizes in deceding order
-      sorted_array.each.with_index do |(attribute, data), index|
-        #calls item and index
-        if index == 0
-          return attribute[:rebounds]
+      team_data[:players].each do |stats|
+        if biggest_shoe_player == nil
+          biggest_shoe_player = stats
+        end
+        if biggest_shoe_player[:shoe] < stats[:shoe]
+          biggest_shoe_player = stats
         end
       end
     end
+    biggest_shoe_player [:rebounds]
   end
