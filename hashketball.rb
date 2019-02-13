@@ -94,14 +94,14 @@ def big_shoe_rebounds
   shoe = 0
   rebounds = 0
 
-  game_hash.each do |location, team_data|
-    team_data[:players].each do |attribute, data|
-      if attribute[:shoe] > shoe
-        shoe = attribute[:shoe]
-        name = attribute
-        rebounds = attribute[:rebounds]
+def big_shoe_rebounds
+    game_hash.each do |location, team_data|
+      sorted_array = team_data[:players].sort_by { |attribute, data| attribute[:shoe]}.reverse #creates new array with shoe sizes in deceding order
+
+      sorted_array.each.with_index do |(attribute, data), index|
+        if index == 0
+          return attribute[:rebounds]
+        end
       end
     end
   end
-  rebounds
-end
