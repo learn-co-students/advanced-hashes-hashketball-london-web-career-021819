@@ -189,38 +189,53 @@ def all_players # returns a hash containing stats for every player
 end
 
 def big_shoe_rebounds
-  # find the biggest shoe size
-  shoes = []
-  all_players.each do |k, v|
-    v.each do |a, b|
-      if a == :shoe
-        shoes << b
-      end
+  shoes_array = []
+  rebounds_array = []
+
+  game_hash.each do |location, stats|
+    stats[:players].each do |name, value|
+      shoes_array << value[:shoe]
+      rebounds_array << value[:rebounds]
     end
   end
-  biggest = shoes.max # 19 - Mason Plumlee
-
-  # find the player with biggest shoe size
-  big_foot = ""
-   game_hash.each do |location, team_info|
-      team_info.each do |x, y|
-        if x == :players
-          y.each do |player_name, stats|
-            stats.each do |j, k|
-              if j == :shoe
-                if k == biggest
-                  big_foot = player_name
-                end
-              end
-            end
-          end
-        end
-      end
-   end
-
-  # find that players number of rebounds
-  player_stats(big_foot)[:rebounds]
+  rebounds_array[shoes_array.each_with_index.max[1]]
 end
+
+# def big_shoe_rebounds
+#   # find the biggest shoe size
+#   shoes = []
+#   all_players.each do |k, v|
+#     v.each do |a, b|
+#       if a == :shoe
+#         shoes << b
+#       end
+#     end
+#   end
+#   biggest = shoes.max # 19 - Mason Plumlee
+#
+#   # find the player with biggest shoe size
+#   big_foot = ""
+#    game_hash.each do |location, team_info|
+#       team_info.each do |x, y|
+#         if x == :players
+#           y.each do |player_name, stats|
+#             stats.each do |j, k|
+#               if j == :shoe
+#                 if k == biggest
+#                   big_foot = player_name
+#                 end
+#               end
+#             end
+#           end
+#         end
+#       end
+#    end
+#
+#   # find that players number of rebounds
+#   player_stats(big_foot)[:rebounds]
+# end
+
+# BONUS QUESTIONS:
 
 def most_points_scored
   # find the highest number of points
@@ -245,7 +260,17 @@ def most_points_scored
       end
      end
    end
-
    highest_scorer
+end
+
+# which team has the most points?
+def winning_team
 
 end
+
+# which player has the longest name?
+def player_with_longest_name
+
+end
+
+# SUPER BONUS QUESTION:
